@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>我的履歷</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===== 全域樣式 ===== */
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #fdfbf6; /* 奶油白背景 */
+      color: #fdfbf6;
+      line-height: 1.6;
+      overflow-x: hidden;
+      scroll-behavior: smooth; /* 平滑捲動 */
+    }
+
+    h1, h2 {
+      color: #5a3fff; /* 紫藍標題 */
+    }
+
+    a {
+      color: #5a3fff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px 0;
+    }
+
+    section {
+      margin: 80px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card {
+      background: rgba(30, 30, 60, 0.75); /* 保持原色區塊 */
+      color: #e0e0ff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(90, 63, 255, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(90, 63, 255, 0.6);
+    }
+
+    /* ===== 頂部區塊 ===== */
+    .header {
+      text-align: center;
+    }
+
+    .header img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #5a3fff;
+      margin-bottom: 20px;
+    }
+
+    /* ===== 側邊導覽列 ===== */
+    nav {
+      position: fixed;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 1000;
+    }
+
+    nav a {
+      background: rgba(30, 30, 60, 0.9); /* 原色導覽列 */
+      color: #e0e0ff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(90, 63, 255, 0.9);
+      color: #fff;
+    }
+
+    /* ===== 響應式調整 ===== */
+    @media (max-width: 768px) {
+      nav {
+        left: 5px;
+      }
+      nav a {
+        font-size: 12px;
+        padding: 6px 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 側邊導覽列 -->
+  <nav>
+    <a href="#header">首頁</a>
+    <a href="#about">關於我</a>
+    <a href="#edu">學歷</a>
+    <a href="#skills">技能</a>
+    <a href="#exp">經歷</a>
+    <a href="#contact">聯絡方式</a>
+  </nav>
+
+  <div class="container">
+    <!-- 頂部區塊 -->
+    <section id="header" class="header card">
+      <h1>你的名字</h1> <!-- 📝 填寫姓名 -->
+      <p>你的職稱 / 標題</p> <!-- 📝 填寫標題 -->
+      <img src="your-photo.jpg" alt="個人照片" /> <!-- 📝 照片 -->
+      <p>Email: yourmail@example.com | 電話: 09xx-xxx-xxx</p> <!-- 📝 聯絡方式 -->
+    </section>
+
+    <!-- 關於我 -->
+    <section id="about" class="card">
+      <h2>關於我</h2>
+      <p>📝 在這裡寫一段自我介紹，例如你的背景、興趣、職涯目標。</p>
+    </section>
+
+    <!-- 學歷 -->
+    <section id="edu" class="card">
+      <h2>學歷</h2>
+      <p><strong>學校名稱</strong> - 科系 (年份 ~ 年份)</p>
+    </section>
+
+    <!-- 技能 -->
+    <section id="skills" class="card">
+      <h2>技能</h2>
+      <ul>
+        <li>📝 技能 1</li>
+        <li>📝 技能 2</li>
+        <li>📝 技能 3</li>
+      </ul>
+    </section>
+
+    <!-- 經歷 -->
+    <section id="exp" class="card">
+      <h2>經歷</h2>
+      <p><strong>公司 / 專案名稱</strong> - 職位 (年份 ~ 年份)</p>
+      <p>📝 簡短描述你的貢獻與成就。</p>
+    </section>
+
+    <!-- 其他聯絡方式 -->
+    <section id="contact" class="card">
+      <h2>其他聯絡方式</h2>
+      <p><a href="#">GitHub</a> | <a href="#">LinkedIn</a> | <a href="#">作品集網站</a></p>
+    </section>
+  </div>
+
+  <!-- JavaScript：淡入效果 -->
+  <script>
+    const sections = document.querySelectorAll("section");
+    const options = { threshold: 0.2 };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
